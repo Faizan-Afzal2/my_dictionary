@@ -1,7 +1,7 @@
-import 'package:dictionary_app/view/home_page.dart';
-import 'package:dictionary_app/view/info_page.dart';
-import 'package:dictionary_app/view/save_word_page.dart';
-import 'package:dictionary_app/view/search_page.dart';
+import 'package:dictionary_app/view/pages/home_page.dart';
+import 'package:dictionary_app/view/pages/info_page.dart';
+import 'package:dictionary_app/view/pages/save_word_page.dart';
+import 'package:dictionary_app/view/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -68,12 +68,14 @@ class MyTextField extends StatelessWidget {
   final String label;
   final String hint;
   final TextInputType type;
+  final double? height;
   final TextEditingController controller;
   final void Function(String)? onSubmit;
 
   MyTextField(
       {required this.label,
       required this.hint,
+       this.height=60,
       required this.type,
       required this.controller,
       this.onSubmit});
@@ -82,31 +84,34 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        cursorColor: black,
-        controller: controller,
-        keyboardType: type,
-        style: TextStyle(color: black, fontStyle: FontStyle.italic),
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(  
-            borderSide: BorderSide(color: black),
-            borderRadius: BorderRadius.circular(20)
+      child: Container(
+        height: height,
+        child: TextField(
+          cursorColor: black,
+          controller: controller,
+          keyboardType: type,
+          style: TextStyle(color: black, fontStyle: FontStyle.italic),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(  
+              borderSide: BorderSide(color: black),
+              borderRadius: BorderRadius.circular(20)
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                color: black,
+              ), // Border color when focused
+            ),
+            label: Text(
+              label,
+              style: TextStyle(color: dgrey, fontSize: 16),
+            ),
+            hintText: hint,
+            hintStyle: TextStyle(color: dgrey, fontStyle: FontStyle.italic),
+            focusColor: lgrey,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
-              color: black,
-            ), // Border color when focused
-          ),
-          label: Text(
-            label,
-            style: TextStyle(color: dgrey, fontSize: 16),
-          ),
-          hintText: hint,
-          hintStyle: TextStyle(color: dgrey, fontStyle: FontStyle.italic),
-          focusColor: lgrey,
+          onSubmitted: onSubmit,
         ),
-        onSubmitted: onSubmit,
       ),
     );
   }

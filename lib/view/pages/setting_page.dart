@@ -1,4 +1,4 @@
-import 'package:dictionary_app/view/utils.dart';
+import 'package:dictionary_app/components/utils.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
